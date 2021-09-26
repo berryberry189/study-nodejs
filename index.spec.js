@@ -1,6 +1,6 @@
 const request = require('supertest');
 const should = require('should');
-const app = require('./index');
+const app = require('./index.js');
 
 //API 테스트의 경우 테스트 수트에 API 이름을 적는다.
 describe('GET /users는', () => {
@@ -31,5 +31,18 @@ describe('GET /users는', () => {
                 .end(done);
         });
     })
+});
+
+describe('GET /users/:id 는', () => {
+    describe('성공 시', () => {
+        it('id가 1인 유저 객체를 반환한다', (done) => {
+            request(app)
+                .get('/users/1')
+                .end((err, res) => {
+                    res.body.should.have.property('id', 1);
+                    done();
+                });
+        });
+    });
 
 });

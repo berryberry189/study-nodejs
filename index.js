@@ -1,7 +1,7 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const morgan = require('morgan');
-const port = 3000
+const port = 3000;
 const users = [
     {id: 1, name: 'alice'},
     {id: 2, name: 'beck'},
@@ -20,6 +20,14 @@ app.get('/users', (req, res) => {
     res.json(users.slice(0, limit));
 });
 
+app.get('/users/:id', (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    const user = users.filter((user) => user.id === id )[0];
+    res.json(user);
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
-})
+});
+
+module.exports = app;
