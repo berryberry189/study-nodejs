@@ -8,8 +8,14 @@ function logger(req, res, next) {
     next();
 }
 
+function logger2(req, res, next) {
+    console.log('I am logger2.');
+    next();
+}
+
 // 미들웨어 추가 시에는 use 사용
 app.use(logger);
+app.use(logger2);
 
 app.listen(3000, function () {
     console.log('Server is running');
