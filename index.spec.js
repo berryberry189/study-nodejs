@@ -3,6 +3,7 @@ const should = require('should');
 const app = require('./index.js');
 
 //API 테스트의 경우 테스트 수트에 API 이름을 적는다.
+// 사용자 목록 조회
 describe('GET /users는', () => {
     describe('성공 시', () => {
         it('유저 객체를 담은 배열로 응답한다', (done) => {
@@ -33,6 +34,7 @@ describe('GET /users는', () => {
     })
 });
 
+// 사용자 조회
 describe('GET /users/:id 는', () => {
     describe('성공 시', () => {
         it('id가 1인 유저 객체를 반환한다', (done) => {
@@ -60,7 +62,8 @@ describe('GET /users/:id 는', () => {
     })
 });
 
-describe('DELETE /users:1는', () => {
+// 사용자 삭제
+describe('DELETE /users:id는', () => {
     describe('성공 시', () => {
         it('204를 응답한다.', done => {
             request(app)
@@ -79,7 +82,8 @@ describe('DELETE /users:1는', () => {
     });
 });
 
-describe('POST /users', () => {
+// 사용자 추가
+describe('POST /users 는', () => {
     describe('성공 시', () => {
         let name = 'daniel',
             body;
@@ -116,4 +120,20 @@ describe('POST /users', () => {
                 .end(done);
         });
     })
+});
+
+/// 사용자 수정
+describe('PUT /users/:id는', () => {
+    describe('성공 시', () => {
+        it('변경된 name을 응답한다.', done => {
+            const name = 'cherry';
+            request(app)
+                .put('/users/3')
+                .send({name})
+                .end((err, res) => {
+                    res.body.should.have.property('name', name);
+                    done();
+                });
+        });
+    });
 });
