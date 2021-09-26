@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 // 미들웨어 : 함수들의 연속
@@ -16,6 +17,7 @@ function logger2(req, res, next) {
 // 미들웨어 추가 시에는 use 사용
 app.use(logger);
 app.use(logger2);
+app.use(morgan('dev'));
 
 app.listen(3000, function () {
     console.log('Server is running');
