@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const port = 3000;
+const bodyParser = require('body-parser');
 let users = [
     {id: 1, name: 'alice'},
     {id: 2, name: 'beck'},
@@ -9,6 +10,8 @@ let users = [
 ];
 
 app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // 라우팅 설정
 // 사용자 목록 조회
@@ -36,6 +39,15 @@ app.delete('/users/:id', (req, res) => {
     if (Number.isNaN(id)) return res.status(400).end();
     users = users.filter(user => user.id !== id);
     res.status(204).end();
+});
+
+// 사용자 추가
+app.post('/users', (req, res) => {
+    const name = req.body.name;
+    const id = Date.now();
+    const user = {id, name};
+    users.push(user);
+    res.status(201).json(user);
 });
 
 app.listen(port, () => {
