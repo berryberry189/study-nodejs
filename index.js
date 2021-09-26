@@ -1,20 +1,12 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
+const port = 3000
 
-function commonmw(req, res, next){
-    console.log('commonmw');
-    next(new Error('error ouccered'));
-}
+// 라우팅 설정
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
 
-function errormw(err, req, res, next){
-    console.log(err.message);
-    // 에를 처리하거나
-    next(); // 다음 미들웨어에 에러를 넘김
-}
-
-app.use(commonmw);
-app.use(errormw);
-
-app.listen(3000, function () {
-    console.log('Server is running');
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
 })
