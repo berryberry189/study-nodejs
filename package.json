@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "mocha api/user/user.spec.js",
-    "start": "node index.js"
+    "test": "NODE_ENV=test mocha api/user/user.spec.js",
+    "start": "node bin/www.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
